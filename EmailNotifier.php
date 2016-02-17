@@ -17,8 +17,8 @@ class EmailNotifier implements Notifier {
     private static function sendMail(array $parameters)
     {
         $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, 'ssl')
-            ->setUsername('thrustinv@gmail.com')
-            ->setPassword('29^1p^uniu\'mcoded419574*s');
+            ->setUsername('sevasnoreply@gmail.com')
+            ->setPassword('fileopen');
 
         // Create the message
         $message = Swift_Message::newInstance();
