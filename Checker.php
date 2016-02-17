@@ -51,34 +51,34 @@ class Checker {
                         EmailNotifier::notify(array(
                             "recipients" => $sortManagers['admin'],
                             "subject" => "{$platform} Is Down..",
-                            "message" => "OOps! Looks like something went wrong with {$platform}"
+                            "message" => "Admin: OOps! Looks like something went wrong with {$platform}"
                         ));
 
                     if( ! empty($sortManagers['technical']))
                         EmailNotifier::notify(array(
                             "recipients" => $sortManagers['technical'],
                             "subject" => "{$platform} Is Down..",
-                            "message" => "OOps! Looks like something went wrong with {$platform}"
+                            "message" => "Technical: OOps! Looks like something went wrong with {$platform}"
                         ));
 
                     if( ! empty($sortManagers['operational']))
                         EmailNotifier::notify(array(
                             "recipients" => $sortManagers['operational'],
                             "subject" => "{$platform} Is Down..",
-                            "message" => "OOps! Looks like something went wrong with {$platform}"
+                            "message" => "Operations: OOps! Looks like something went wrong with {$platform}"
                         ));
                 }
 
                 Querier::getInstance()->clearFailure($platform);
-                echo "Sevas is still off and a notification has been sent to those concerned..";
+                echo "{$platform} Sevas is still off and a notification has been sent to those concerned..";
                 return;
             }
 
             Querier::getInstance()->setFirstFail($platform);
-            echo "Sevas is off for the first time...";
+            echo "{$platform} Sevas is off for the first time...";
             return;
         }
-        echo "Sevas is On..";
+        echo "{$platform} Sevas is On..";
     }
 
     /**

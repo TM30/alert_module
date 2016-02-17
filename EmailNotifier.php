@@ -28,7 +28,7 @@ class EmailNotifier implements Notifier {
             $messageRecipients[] = $recipient;
 
         $subject = $parameters['subject'];
-        $body = $parameters['body'];
+        $body = $parameters['message'];
 
         if (! empty($messageRecipients)) {
             $message->setTo($messageRecipients);
