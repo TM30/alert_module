@@ -13,9 +13,6 @@ class Querier {
      */
     public static function getInstance()
     {
-        /*if (isset(self::$getInstance))
-            return self::$getInstance;
-        return self::$getInstance = new self();*/
         return self::$getInstance ?: (self::$getInstance = new self());
     }
 
@@ -28,38 +25,38 @@ class Querier {
     }
 
     /**
-     * This returns an array containing the id and flag/state of this platform.
-     * @param $platform
+     * This method queries a platform and gets all its associated details.
+     * @param $platformName
      * @return mixed
      */
-    public function getStateWithId($platform)
+    public function getPlatformDetails($platformName)
     {
-        $platformFlagQueryString = "select id, flag from platforms where platforms.name = '$platform'";
-        return $this->db->query($platformFlagQueryString)->fetchColumn();
+        $platformQueryString = "select * from alert_engine where alert_engine.name = '$platformName'";
+        return $this->db->query($platformQueryString)->fetchRow();
     }
 
-    /**
-     * This returns an array containing the participating users and their respective roles for this platform.
-     * @param $platformId
-     * @return mixed
-     */
-    public function getManagers($platformId)
+    public function fetchNetworkTags()
     {
-        $recipientsQuery = "select users.name, users.email, users.role from users inner join platform_users on
-                                    users.id = platform_users.user_id where platform_users.platform_id = '$platformId'";
-        return $this->db->query($recipientsQuery)->fetchAssoc();
+        $networkTagsQueryString = "select * from network_tag";
+        return $this->db->query($networkTagsQueryString)->fetchAssoc();
     }
 
     public function clearFailure($platform)
     {
-        $platformFlagQUpdateString = "UPDATE platforms SET flag = 0 WHERE platforms.name = '$platform'";
+        $platformFlagQUpdateString = "UPDATE platforms SET flag = 0 WHERE alert_engine.name = '$platform'";
         $this->db->query($platformFlagQUpdateString);
     }
 
     public function setFirstFail($platform)
     {
-        $platformFlagQUpdateString = "UPDATE platforms SET flag = 1 WHERE platforms.name = '$platform'";
+        $platformFlagQUpdateString = "UPDATE platforms SET flag = 1 WHERE alert_engine.name = '$platform'";
         $this->db->query($platformFlagQUpdateString);
     }
 
+    public function updateFlag($blFlag, $bcFlag, $sevFlag, $platformName)
+    {
+        $platformFlagQUpdateString = "UPDATE alert_engine SET bl_flag = '$blFlag',  bc_flag = '$bcFlag',
+                                    sev_flag = '$sevFlag' WHERE alert_engine.name = '$platformName'";
+        $this->db->query($platformFlagQUpdateString);
+    }
 }

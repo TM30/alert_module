@@ -16,7 +16,7 @@ foreach($platforms as $key => $value) {
     $pid = pcntl_fork();
     if ( ! $pid) {
         echo 'starting child ', $i, PHP_EOL;
-        Checker::checkStatus($key, $value);
+        Checker::checkStatus($key);
         exit();
     }
     $i++;

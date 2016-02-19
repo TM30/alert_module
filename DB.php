@@ -6,7 +6,7 @@ class DB {
     private  $localhost = '127.0.0.1';
     private  $username = 'root2';
     private  $password = '123456789';
-    private $database = 'plat_checker';
+    private $database = 'api';
     private static $queryResult;
 
     /**
@@ -71,6 +71,12 @@ class DB {
         return $results;
     }
 
+    public function fetchAll()
+    {
+        if($this->numberOfResult())
+            return self::$queryResult->fetch_all();
+    }
+
     /**
      * This function fetches each row as an object.
      * @return ArrayObject
@@ -85,6 +91,7 @@ class DB {
             return $arrayObject->getIterator();
         }
     }
+
 
     /**
      * This function fetches a single row
@@ -111,7 +118,7 @@ class DB {
     /**
      * @param string $column
      */
-    public function fetchColumn($column = "flag")
+    public function fetchFlagColumnWithId($column = "flag")
     {
         if($this->numberOfResult()){
             while($row = self::$queryResult->fetch_assoc()){
