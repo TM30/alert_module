@@ -40,7 +40,7 @@ class Checker {
                 EmailNotifier::notify(array(
                     "recipients" => array($platformData['gen_admin_email'], $platformData['tech_admin_email']),
                     "subject" => "Sevas is Down",
-                    "message" => "Sevas is currently down for this {$platform}.. Please kindly look inot this.."
+                    "message" => "Sevas is currently down for this {$platformName}.. Please kindly look inot this.."
                 ));
                 echo "Mail sent1...";
             } else {
@@ -101,10 +101,10 @@ class Checker {
      */
     private static function prepareStatusData(array $networks, array $networkBinds, array $statuses)
     {
-        $broadcastIDown = array();
+        $broadcastIsDown = array();
         $billingIsDown = array();
         $broadcastIsInActive = array();
-        $contentIsInactive = array();
+        $contentIsInActive = array();
         $allNetworkTags = array();
 
         $networksLength = count($networks);
@@ -133,7 +133,7 @@ class Checker {
 
                     if ($type == "content") {
                         if ($statuses[$networkBind]['queued'] == "0")
-                            $contentIsInactive[] = $networkBind;
+                            $contentIsInActive[] = $networkBind;
                     }
                 }
             }
@@ -154,7 +154,7 @@ class Checker {
      */
     private static function getAppStatus($appURL)
     {
-        return self::makeCall($appURl);
+        return self::makeCall($appURL);
     }
 
     private static function getTempBillingBroadcastBindStatus($url)
