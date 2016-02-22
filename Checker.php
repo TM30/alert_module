@@ -40,7 +40,7 @@ class Checker {
                 EmailNotifier::notify(array(
                     "recipients" => array($platformData['gen_admin_email'], $platformData['tech_admin_email']),
                     "subject" => "Sevas is Down",
-                    "message" => "Sevas is currently down for this {$platformName}.. Please kindly look inot this.."
+                    "message" => "Sevas is currently down for {$platformName}.. Please kindly look into this.."
                 ));
                 echo "Mail sent1...";
             } else {
@@ -55,7 +55,7 @@ class Checker {
                 EmailNotifier::notify(array(
                     "recipients" => array($platformData['gen_admin_email'], $platformData['tech_admin_email']),
                     "subject" => "Broadcast is Down",
-                    "message" => "Broadcast is currently down for {$binds} on {$platformName}.. Please kindly look inot this.."
+                    "message" => "Broadcast is currently down for {$binds} on {$platformName}.. Please kindly look into this.."
                 ));
                 echo "Mail sent 2...";
             } else  {
@@ -70,7 +70,7 @@ class Checker {
                 EmailNotifier::notify(array(
                     "recipients" => array($platformData['gen_admin_email'], $platformData['tech_admin_email']),
                     "subject" => "Billing  is Down",
-                    "message" => "Billing is currently down for {$binds} on {$platformName}.. Please kindly look inot this.."
+                    "message" => "Billing is currently down for {$binds} on {$platformName}.. Please kindly look into this.."
                 ));
                 echo "Mail sent 3...";
             } else  {
@@ -84,7 +84,7 @@ class Checker {
             EmailNotifier::notify(array(
                 "recipients" => array($platformData['gen_admin_email'], $platformData['ops_admin_email']),
                 "subject" => "INactive Broadcast",
-                "message" => "Broadcast is currently inactive for {$binds} on {$platformName}.. Please kindly look inot this.."
+                "message" => "Broadcast is currently inactive for {$binds} on {$platformName}.. Please kindly look into this.."
             ));
             echo "Mail sent 4...";
         }
@@ -222,4 +222,8 @@ class Checker {
 
 }
 
-/*Checker::checkStatus('freesia2');*/
+//Checker::checkStatus('freesia2');
+
+
+
+

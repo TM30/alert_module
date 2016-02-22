@@ -1,22 +1,18 @@
 <?php
 
+require_once ("Querier.php");
 require_once ("Checker.php");
 
-$platforms = array(
-    "freesia1" => "8585",
-    "freesia2" => "8585",
-    "mobility" => "8585",
-    "starfish" => "8585"
-);
+$platforms = $querierInstance = Querier::getInstance()->fetchAllPlatforms();
 
 //Counter for number of processes
 $i = 1;
 
-foreach($platforms as $key => $value) {
+foreach($platforms as $platform) {
     $pid = pcntl_fork();
     if ( ! $pid) {
         echo 'starting child ', $i, PHP_EOL;
-        Checker::checkStatus($key);
+        Checker::checkStatus($platform['name']);
         exit();
     }
     $i++;

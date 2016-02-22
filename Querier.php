@@ -21,7 +21,13 @@ class Querier {
      */
     public function __construct()
     {
-        $this->db = new DB();
+        return $this->db = new DB();
+    }
+
+    public function fetchAllPlatforms()
+    {
+        $allPlatformsQueryString = "select platforms.name from platforms";
+        return $this->db->query($allPlatformsQueryString)->fetchAssoc();
     }
 
     /**
@@ -31,7 +37,7 @@ class Querier {
      */
     public function getPlatformDetails($platformName)
     {
-        $platformQueryString = "select * from alert_engine where alert_engine.name = '$platformName'";
+        $platformQueryString = "select * from platforms where platforms.name = '$platformName'";
         return $this->db->query($platformQueryString)->fetchRow();
     }
 
@@ -43,20 +49,21 @@ class Querier {
 
     public function clearFailure($platform)
     {
-        $platformFlagQUpdateString = "UPDATE platforms SET flag = 0 WHERE alert_engine.name = '$platform'";
+        $platformFlagQUpdateString = "UPDATE platforms SET flag = 0 WHERE platforms.name = '$platform'";
         $this->db->query($platformFlagQUpdateString);
     }
 
     public function setFirstFail($platform)
     {
-        $platformFlagQUpdateString = "UPDATE platforms SET flag = 1 WHERE alert_engine.name = '$platform'";
+        $platformFlagQUpdateString = "UPDATE platforms SET flag = 1 WHERE platforms.name = '$platform'";
         $this->db->query($platformFlagQUpdateString);
     }
 
     public function updateFlag($blFlag, $bcFlag, $sevFlag, $platformName)
     {
-        $platformFlagQUpdateString = "UPDATE alert_engine SET bl_flag = '$blFlag',  bc_flag = '$bcFlag',
-                                    sev_flag = '$sevFlag' WHERE alert_engine.name = '$platformName'";
+        $platformFlagQUpdateString = "UPDATE platforms SET bl_flag = '$blFlag',  bc_flag = '$bcFlag',
+                                    sev_flag = '$sevFlag' WHERE platforms.name = '$platformName'";
         $this->db->query($platformFlagQUpdateString);
     }
+
 }
